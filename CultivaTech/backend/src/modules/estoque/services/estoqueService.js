@@ -42,9 +42,33 @@ const excluirProdutoEstoque = async (id) => { // Função que vai excluir um ite
     return true; 
 };
 
+/***** Nova Funcionalidade *****/
+
+const limites = {};
+
+const alertarEstoqueBaixo = (produtos) => {
+    const alertas = {};
+
+    produtos.forEach(({ nomeDoProduto, limite, quantidadeProdutoEstoque }) => {
+        if (quantidadeProdutoEstoque < limite) {
+            alertas[nomeDoProduto] = true;
+
+            console.log(`Alerta: Estoque baixo de ${nomeDoProduto}!`);
+        } else {
+            alertas[nomeDoProduto] = false;
+        }
+    });
+
+    return alertas;
+};
+
+/*****************************/
+
 module.exports = {
     cadastrarProdutoEstoque,
     listarProdutosEstoque,
     editarProdutoEstoque,
     excluirProdutoEstoque,
+    alertarEstoqueBaixo,
+    limites,
 };
